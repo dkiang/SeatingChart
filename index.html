@@ -108,7 +108,7 @@
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: var(--primary-color);
             color: white;
             border: none;
@@ -155,7 +155,7 @@
         }
 
         .group {
-            background: white;
+            background: #fff;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 15px;
@@ -183,18 +183,44 @@
             .container {
                 padding: 15px;
             }
-
             .button-group {
                 flex-direction: column;
             }
-
             button {
                 width: 100%;
             }
-
             #groupsDisplay {
                 grid-template-columns: 1fr;
             }
+        }
+
+        /* Tooltip styles for [data-tooltip] */
+        [data-tooltip] {
+            position: relative;
+            cursor: pointer;
+        }
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%) translateX(8px);
+            background: #2c3e50;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            white-space: pre-line;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            min-width: 180px;
+            z-index: 10;
+        }
+        [data-tooltip]:hover::after,
+        [data-tooltip]:focus::after {
+            opacity: 1;
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -206,20 +232,20 @@
             <h2>Student List Management</h2>
             <div class="input-group">
                 <label for="listName">List Name</label>
-                <input type="text" id="listName" placeholder="Enter a name for this list">
+                <input type="text" id="listName" placeholder="Enter a name for this list" aria-label="List Name" data-tooltip="Name for your student list. Used to save and retrieve lists.">
             </div>
             <div class="input-group">
                 <label for="studentNames">Student Names</label>
-                <textarea id="studentNames" placeholder="Enter student names, one per line"></textarea>
+                <textarea id="studentNames" placeholder="Enter student names, one per line" aria-label="Student Names" data-tooltip="Enter one student name per line."></textarea>
             </div>
             <div class="input-group">
                 <label for="savedLists">Saved Lists</label>
-                <select id="savedLists" onchange="loadList()">
+                <select id="savedLists" onchange="loadList()" aria-label="Saved Lists" data-tooltip="Select a previously saved student list.">
                     <option value="">Select a saved list</option>
                 </select>
             </div>
             <div class="button-group">
-                <button onclick="saveList()">Save List</button>
+                <button onclick="saveList()" aria-label="Save List" data-tooltip="Save the current student list with the given name.">Save List</button>
             </div>
         </div>
 
@@ -227,28 +253,28 @@
             <h2>Group Generator</h2>
             <div class="input-group">
                 <label for="groupSize">Students per group:</label>
-                <input type="number" id="groupSize" value="2" min="2">
+                <input type="number" id="groupSize" value="2" min="2" aria-label="Students per group" data-tooltip="Number of students in each group. Minimum 2.">
             </div>
             <div class="grouping-strategy">
                 <label>Grouping Strategy:</label>
                 <div class="radio-group">
                     <div>
-                        <input type="radio" id="maxSameSize" name="strategy" value="maxSameSize" checked>
-                        <label for="maxSameSize">Maximum Same-Size Groups</label>
+                        <input type="radio" id="maxSameSize" name="strategy" value="maxSameSize" checked aria-label="Balanced group sizes" data-tooltip="Distributes students so group sizes are more even, even if not all groups are the same size.">
+                        <label for="maxSameSize">Balanced group sizes</label>
                     </div>
                     <div>
-                        <input type="radio" id="maxNSized" name="strategy" value="maxNSized">
-                        <label for="maxNSized">Maximum N-Sized Groups</label>
+                        <input type="radio" id="maxNSized" name="strategy" value="maxNSized" aria-label="Maximize full groups" data-tooltip="Creates as many full-size groups as possible, putting any extra students in a smaller group.">
+                        <label for="maxNSized">Maximize full groups</label>
                     </div>
                 </div>
             </div>
             <div class="button-group">
-                <button onclick="generateGroups()">Generate Groups</button>
-                <button onclick="regenerateGroups()">Regenerate Groups</button>
+                <button onclick="generateGroups()" aria-label="Generate Groups" data-tooltip="Create groups based on the current student list and settings.">Generate Groups</button>
+                <button onclick="regenerateGroups()" aria-label="Regenerate Groups" data-tooltip="Shuffle and re-create groups with the same settings.">Regenerate Groups</button>
             </div>
         </div>
 
-        <div id="groupsDisplay"></div>
+        <div id="groupsDisplay" aria-live="polite"></div>
     </div>
 
     <script>

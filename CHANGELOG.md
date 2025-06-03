@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Professional color scheme updated to use palette: #213448, #547792, #94B4C1, #ECEFCA
+- Accessible tooltips for all interactive elements (inputs, buttons, selects)
+- ARIA attributes and improved label associations for accessibility
+- Enhanced keyboard navigation and focus states
+- Live region for group display updates
+
+### Changed
+- Improved mobile responsiveness: larger touch targets, refined layout, better font scaling
+- Updated UI to ensure WCAG AA color contrast compliance
+- Updated group distribution algorithm to create more balanced groups
+- Improved layout and spacing throughout the application
+- Enhanced button and input styling
+- Reorganized controls into distinct sections
+- Made the interface more intuitive and user-friendly
+
+### Fixed
+- Group distribution now properly handles remainder students
+- Improved handling of edge cases in group generation
+- Restored tooltip CSS: tooltips now appear on hover/focus for all elements with data-tooltip attributes, including grouping strategy options.
+
 ## [1.1.0] - 2024-03-21
 
 ### Added
@@ -25,17 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Proper focus states
   - Improved form label associations
   - Enhanced interactive element visibility
-
-### Changed
-- Updated group distribution algorithm to create more balanced groups
-- Improved layout and spacing throughout the application
-- Enhanced button and input styling
-- Reorganized controls into distinct sections
-- Made the interface more intuitive and user-friendly
-
-### Fixed
-- Group distribution now properly handles remainder students
-- Improved handling of edge cases in group generation
 
 ## [1.0.0] - 2024-03-21
 
